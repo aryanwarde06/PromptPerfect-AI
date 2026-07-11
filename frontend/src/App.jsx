@@ -1,7 +1,19 @@
-import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import PromptInput from "./components/PromptInput";
+import PromptOutput from "./components/PromptOutput";
+import Footer from "./components/Footer";
 
 function App() {
-  return <Home />;
+  return (
+    <>
+      <Navbar />
+      <Hero />
+      <PromptInput />
+      <PromptOutput />
+      <Footer />
+    </>
+  );
 }
 
 export default App;
