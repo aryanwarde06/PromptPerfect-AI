@@ -1,0 +1,79 @@
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 20px 0;
+}
+
+.container {
+  width: 96%;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px 32px;
+
+  background: rgba(16, 22, 37, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+}
+
+.logo h2 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: white;
+}
+
+.logo p {
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+.links {
+  display: flex;
+  gap: 36px;
+}
+
+.links a {
+  color: #cbd5e1;
+  font-size: 16px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.links a:hover {
+  color: white;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.signIn {
+  background: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.getStarted {
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 600;
+}

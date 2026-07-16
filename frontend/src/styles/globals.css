@@ -1,34 +1,40 @@
-:root {
-  /* Backgrounds */
-  --bg-primary: #080b19;
-  --bg-secondary: #111827;
-  --bg-card: #182132;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+@import "./variables.css";
 
-  /* Text */
-  --text-primary: #ffffff;
-  --text-secondary: #94a3b8;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  /* Brand */
-  --primary: #3b82f6;
-  --secondary: #7c3aed;
-  --accent: #06b6d4;
+html {
+  scroll-behavior: smooth;
+}
 
-  /* Border */
-  --border: #273449;
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  overflow-x: hidden;
+}
 
-  /* Radius */
-  --radius: 18px;
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
-  /* Shadow */
-  --shadow:
-    0 10px 40px rgba(0,0,0,.35);
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
 
-  /* Gradient */
-  --gradient:
-    linear-gradient(
-      90deg,
-      #3b82f6,
-      #06b6d4,
-      #7c3aed
-    );
+img {
+  max-width: 100%;
+  display: block;
+}
+
+#root {
+  min-height: 100vh;
 }

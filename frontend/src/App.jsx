@@ -1,10 +1,20 @@
-import Navbar from "./components/layout/Navbar";
+import Navbar from "./components/Navbar/Navbar";
+import Hero from "./components/Hero/Hero";
+import PromptInput from "./components/PromptInput/PromptInput";
+import Features from "./components/Features/Features";
+import Templates from "./components/Templates/Templates";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#080B19]">
+    <>
       <Navbar />
-    </div>
+      <Hero />
+      <PromptInput />
+      <Features />
+      <Templates />
+      <Footer />
+    </>
   );
 }
 

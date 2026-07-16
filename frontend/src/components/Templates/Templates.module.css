@@ -1,0 +1,124 @@
+.templates {
+  width: 100%;
+  padding: 120px 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 10px 20px;
+
+  border-radius: 999px;
+
+  background: rgba(37, 99, 235, 0.12);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+
+  color: #8ec5ff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.container h2 {
+  margin-top: 24px;
+  font-size: 52px;
+  color: white;
+}
+
+.container > p {
+  margin-top: 18px;
+  color: #94a3b8;
+  font-size: 18px;
+
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.grid {
+  margin-top: 70px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 30px;
+}
+
+.card {
+  background: rgba(16, 22, 37, 0.85);
+
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 22px;
+
+  padding: 35px;
+
+  text-align: left;
+
+  transition: all .3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+
+  border-color: #2563eb;
+
+  box-shadow: 0 12px 30px rgba(37,99,235,.15);
+}
+
+/* NEW ICON STYLE */
+
+.icon {
+  width: 64px;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  background: rgba(37,99,235,.12);
+
+  color: #3b82f6;
+
+  margin-bottom: 24px;
+
+  transition: all .3s ease;
+}
+
+.card:hover .icon {
+  background: #2563eb;
+  color: white;
+
+  transform: scale(1.08);
+}
+
+.card h3 {
+  color: white;
+
+  font-size: 22px;
+
+  margin-bottom: 14px;
+}
+
+.card p {
+  color: #94a3b8;
+
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container h2 {
+    font-size: 40px;
+  }
+
+}

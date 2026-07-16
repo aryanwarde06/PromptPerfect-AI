@@ -1,0 +1,25 @@
+:root {
+  /* Colors */
+  --bg: #080b19;
+  --surface: #101625;
+  --surface-light: #182033;
+
+  --primary: #2563eb;
+  --secondary: #7c3aed;
+  --cyan: #06b6d4;
+
+  --white: #ffffff;
+  --text: #cbd5e1;
+  --muted: #94a3b8;
+
+  --border: rgba(255,255,255,0.08);
+
+  /* Radius */
+  --radius: 18px;
+
+  /* Container */
+  --container: 1200px;
+
+  /* Transition */
+  --transition: all 0.3s ease;
+}
