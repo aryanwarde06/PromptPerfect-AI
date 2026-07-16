@@ -1,9 +1,37 @@
 import { useState } from "react";
 import styles from "./PromptInput.module.css";
+import { optimizePrompt } from "../../services/promptService";
 
 function PromptInput() {
   const [prompt, setPrompt] = useState("");
   const [category, setCategory] = useState("Coding");
+
+  const [loading, setLoading] = useState(false);
+  const [optimizedPrompt, setOptimizedPrompt] = useState("");
+  const [error, setError] = useState("");
+
+  const handleOptimize = async () => {
+    if (!prompt.trim()) {
+      setError("Please enter a prompt.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError("");
+
+      const result = await optimizePrompt(prompt, category);
+
+      setOptimizedPrompt(
+        result.optimizedPrompt || result.prompt || ""
+      );
+    } catch (err) {
+      setError("Failed to optimize prompt.");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section className={styles.section}>
@@ -53,9 +81,48 @@ function PromptInput() {
           <span>{prompt.length}/1000</span>
         </div>
 
-        <button>
-          Optimize Prompt
+        <button
+          onClick={handleOptimize}
+          disabled={loading}
+        >
+          {loading ? "Optimizing..." : "Optimize Prompt"}
         </button>
+
+        {error && (
+          <p
+            style={{
+              color: "#ef4444",
+              marginTop: "20px",
+              textAlign: "center",
+            }}
+          >
+            {error}
+          </p>
+        )}
+
+        {optimizedPrompt && (
+          <div
+            style={{
+              marginTop: "30px",
+              padding: "20px",
+              background: "#0f172a",
+              borderRadius: "14px",
+              border: "1px solid rgba(255,255,255,0.08)",
+              color: "#fff",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            <h3
+              style={{
+                marginBottom: "15px",
+              }}
+            >
+              Optimized Prompt
+            </h3>
+
+            <p>{optimizedPrompt}</p>
+          </div>
+        )}
 
       </div>
     </section>

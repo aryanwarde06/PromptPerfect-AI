@@ -1,20 +1,28 @@
 .hero {
   width: 100%;
-
-  padding: 140px 20px 80px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  text-align: center;
+  padding: 120px 20px 40px;
 
   position: relative;
   overflow: hidden;
 }
 
-.hero::before {
-  content: "";
+.content {
+  width: 100%;
+  max-width: 900px;
+
+  margin: 0 auto;
+
+  text-align: center;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* ===========================
+   Background Glow
+=========================== */
+
+.glowOne {
   position: absolute;
 
   width: 700px;
@@ -26,34 +34,71 @@
     transparent 70%
   );
 
-  top: 50%;
+  top: -220px;
   left: 50%;
 
-  transform: translate(-50%, -50%);
-  filter: blur(90px);
+  transform: translateX(-50%);
 
-  z-index: -1;
+  filter: blur(120px);
+
+  z-index: 0;
 }
 
+.glowTwo {
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  background: radial-gradient(
+    circle,
+    rgba(124, 58, 237, 0.18),
+    transparent 70%
+  );
+
+  top: 120px;
+  right: -180px;
+
+  filter: blur(120px);
+
+  z-index: 0;
+}
+
+/* ===========================
+   Badge
+=========================== */
+
 .badge {
-  background: rgba(37, 99, 235, 0.12);
-  border: 1px solid rgba(37, 99, 235, 0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 
-  color: #8ec5ff;
-
-  padding: 10px 20px;
+  padding: 10px 22px;
 
   border-radius: 999px;
 
+  background: rgba(255,255,255,.05);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  backdrop-filter: blur(12px);
+
+  color: #8ec5ff;
+
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
+/* ===========================
+   Heading
+=========================== */
+
 .title {
-  margin-top: 35px;
+  margin-top: 28px;
 
   font-size: 72px;
-  line-height: 1.08;
+
+  line-height: 1.05;
 
   font-weight: 800;
 
@@ -72,63 +117,90 @@
   -webkit-text-fill-color: transparent;
 }
 
-.description {
-  margin-top: 30px;
+/* ===========================
+   Description
+=========================== */
 
+.description {
   max-width: 760px;
+
+  margin: 24px auto 0;
 
   color: #94a3b8;
 
-  font-size: 20px;
+  font-size: 19px;
+
   line-height: 1.8;
 }
 
+/* ===========================
+   Buttons
+=========================== */
+
 .buttons {
   display: flex;
-  gap: 20px;
+  justify-content: center;
+  gap: 18px;
 
-  margin-top: 45px;
+  margin-top: 36px;
+}
+
+.primary,
+.secondary {
+  padding: 16px 34px;
+
+  border-radius: 14px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  transition: all .3s ease;
 }
 
 .primary {
-  background: linear-gradient(90deg, #2563eb, #7c3aed);
-
-  color: white;
   border: none;
 
-  padding: 16px 34px;
+  color: white;
 
-  border-radius: 14px;
+  background: linear-gradient(
+    90deg,
+    #2563eb,
+    #7c3aed
+  );
 
-  font-size: 16px;
-  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(37,99,235,.25);
+}
 
-  cursor: pointer;
+.primary:hover {
+  transform: translateY(-3px);
 }
 
 .secondary {
-  background: transparent;
+  border: 1px solid rgba(255,255,255,.12);
+
+  background: rgba(255,255,255,.03);
 
   color: white;
-
-  border: 1px solid rgba(255, 255, 255, 0.12);
-
-  padding: 16px 34px;
-
-  border-radius: 14px;
-
-  cursor: pointer;
 }
+
+.secondary:hover {
+  background: rgba(255,255,255,.06);
+
+  transform: translateY(-3px);
+}
+
+/* ===========================
+   Platform Pills
+=========================== */
 
 .platforms {
   display: flex;
-  gap: 15px;
-
-  margin-top: 50px;
+  justify-content: center;
+  gap: 14px;
 
   flex-wrap: wrap;
 
-  justify-content: center;
+  margin-top: 34px;
 }
 
 .platforms span {
@@ -136,11 +208,46 @@
 
   border-radius: 999px;
 
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255,255,255,.03);
 
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255,255,255,.08);
 
   color: #cbd5e1;
 
-  font-size: 14px;
+  font-size: 13px;
+
+  transition: .3s;
+}
+
+.platforms span:hover {
+  border-color: #2563eb;
+
+  background: rgba(37,99,235,.08);
+
+  transform: translateY(-2px);
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width: 900px) {
+
+  .hero {
+    padding: 100px 20px 30px;
+  }
+
+  .title {
+    font-size: 50px;
+  }
+
+  .description {
+    font-size: 17px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
 }

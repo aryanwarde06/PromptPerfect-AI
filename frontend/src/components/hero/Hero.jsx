@@ -4,38 +4,48 @@ function Hero() {
   return (
     <section className={styles.hero}>
 
-      <div className={styles.badge}>
-        AI Powered Prompt Engineering
-      </div>
+      {/* Background Glow */}
+      <div className={styles.glowOne}></div>
+      <div className={styles.glowTwo}></div>
 
-      <h1 className={styles.title}>
-        Transform Simple
-        <br />
-        Prompts Into
-        <br />
-        <span>Powerful AI Prompts</span>
-      </h1>
+      <div className={styles.content}>
 
-      <p className={styles.description}>
-        Create high-quality prompts for ChatGPT, Gemini, Claude,
-        Copilot and other AI models with a single click.
-      </p>
+        <div className={styles.badge}>
+          ✨ AI Powered Prompt Engineering
+        </div>
 
-      <div className={styles.buttons}>
-        <button className={styles.primary}>
-          Get Started
-        </button>
+        <h1 className={styles.title}>
+          Transform Your Ideas Into
+          <br />
+          <span>Professional AI Prompts</span>
+        </h1>
 
-        <button className={styles.secondary}>
-          Explore Features
-        </button>
-      </div>
+        <p className={styles.description}>
+          PromptPerfect AI helps you convert simple instructions into
+          optimized prompts for ChatGPT, Gemini, Claude, Copilot,
+          DeepSeek and other leading AI models in seconds.
+        </p>
 
-      <div className={styles.platforms}>
-        <span>ChatGPT</span>
-        <span>Gemini</span>
-        <span>Claude</span>
-        <span>Copilot</span>
+        <div className={styles.buttons}>
+
+          <button className={styles.primary}>
+            Start Optimizing
+          </button>
+
+          <button className={styles.secondary}>
+            View Templates
+          </button>
+
+        </div>
+
+        <div className={styles.platforms}>
+          <span>ChatGPT</span>
+          <span>Gemini</span>
+          <span>Claude</span>
+          <span>Copilot</span>
+          <span>DeepSeek</span>
+        </div>
+
       </div>
 
     </section>
