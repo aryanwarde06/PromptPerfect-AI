@@ -2,12 +2,11 @@ import { useState } from "react";
 import styles from "./PromptInput.module.css";
 import { optimizePrompt } from "../../services/promptService";
 
-function PromptInput() {
+function PromptInput({ setOptimizedPrompt }) {
   const [prompt, setPrompt] = useState("");
   const [category, setCategory] = useState("Coding");
 
   const [loading, setLoading] = useState(false);
-  const [optimizedPrompt, setOptimizedPrompt] = useState("");
   const [error, setError] = useState("");
 
   const handleOptimize = async () => {
@@ -98,30 +97,6 @@ function PromptInput() {
           >
             {error}
           </p>
-        )}
-
-        {optimizedPrompt && (
-          <div
-            style={{
-              marginTop: "30px",
-              padding: "20px",
-              background: "#0f172a",
-              borderRadius: "14px",
-              border: "1px solid rgba(255,255,255,0.08)",
-              color: "#fff",
-              whiteSpace: "pre-wrap",
-            }}
-          >
-            <h3
-              style={{
-                marginBottom: "15px",
-              }}
-            >
-              Optimized Prompt
-            </h3>
-
-            <p>{optimizedPrompt}</p>
-          </div>
         )}
 
       </div>
