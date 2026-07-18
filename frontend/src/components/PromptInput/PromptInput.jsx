@@ -1,11 +1,13 @@
 import { useState } from "react";
 import styles from "./PromptInput.module.css";
-import { optimizePrompt } from "../../services/promptService";
 
-function PromptInput({ setOptimizedPrompt }) {
-  const [prompt, setPrompt] = useState("");
-  const [category, setCategory] = useState("Coding");
-
+function PromptInput({
+  prompt,
+  setPrompt,
+  category,
+  setCategory,
+  onOptimize,
+}) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -19,11 +21,8 @@ function PromptInput({ setOptimizedPrompt }) {
       setLoading(true);
       setError("");
 
-      const result = await optimizePrompt(prompt, category);
+      await onOptimize();
 
-      setOptimizedPrompt(
-        result.optimizedPrompt || result.prompt || ""
-      );
     } catch (err) {
       setError("Failed to optimize prompt.");
       console.error(err);

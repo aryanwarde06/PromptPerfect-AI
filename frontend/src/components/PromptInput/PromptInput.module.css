@@ -72,10 +72,65 @@
 
   color: white;
 
+  font-size: 18px;
   font-weight: 600;
 }
 
-.field select,
+/* ============================= */
+/* Prompt Category Dropdown */
+/* ============================= */
+
+.field select {
+  width: 100%;
+
+  height: 64px;
+
+  padding: 0 20px;
+
+  background: #0f172a;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 14px;
+
+  color: white;
+
+  font-size: 20px;
+  font-weight: 500;
+
+  outline: none;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 20 20'%3E%3Cpath d='M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z'/%3E%3C/svg%3E");
+
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  background-size: 28px;
+}
+
+.field select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.field select option {
+  font-size: 18px;
+  padding: 16px;
+  background: #0f172a;
+  color: white;
+}
+
+/* ============================= */
+/* Textarea */
+/* ============================= */
+
 .field textarea {
   width: 100%;
 
@@ -85,26 +140,23 @@
 
   border-radius: 14px;
 
-  padding: 16px;
+  padding: 18px;
 
   color: white;
 
-  font-size: 16px;
+  font-size: 17px;
 
   outline: none;
 
-  transition: 0.3s ease;
+  resize: vertical;
+  min-height: 220px;
+
+  transition: all 0.3s ease;
 }
 
-.field select:focus,
 .field textarea:focus {
   border-color: #2563eb;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
-
-.field textarea {
-  resize: vertical;
-  min-height: 220px;
 }
 
 .info {
@@ -159,5 +211,14 @@
 
   .header h2 {
     font-size: 34px;
+  }
+
+  .field select {
+    font-size: 18px;
+    height: 58px;
+  }
+
+  .field textarea {
+    font-size: 16px;
   }
 }

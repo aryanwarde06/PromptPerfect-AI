@@ -1,52 +1,133 @@
 const client = require("../config/openrouter");
 
-const optimizePrompt = async (prompt, category = "professional") => {
+const optimizePrompt = async (prompt, style = "professional") => {
+
   let systemPrompt = "";
 
-  switch (category.toLowerCase()) {
-    case "creative":
-      systemPrompt =
-        "You are an expert creative prompt engineer. Rewrite the user's prompt to encourage creativity, imagination, and detailed outputs.";
-      break;
+  switch (style.toLowerCase()) {
 
     case "coding":
-      systemPrompt =
-        "You are an expert software prompt engineer. Rewrite the user's prompt so AI produces accurate, clean, well-structured, and production-ready programming solutions.";
+      systemPrompt = `
+You are a Senior Software Engineer and Prompt Engineering Expert.
+
+Your job is NOT to answer the user's request.
+
+Your job is ONLY to convert the user's short request into a professional AI prompt.
+
+The optimized prompt MUST contain these sections:
+
+1. Role
+2. Objective
+3. Requirements
+4. Output Format
+5. Constraints
+
+Make the prompt detailed, structured, and easy for AI models to understand.
+
+Return ONLY the optimized prompt.
+`;
       break;
 
     case "resume":
-      systemPrompt =
-        "You are an expert resume prompt engineer. Rewrite the user's prompt to generate ATS-friendly, professional resumes and cover letters.";
-      break;
+      systemPrompt = `
+You are an expert Resume Writer.
 
-    case "email":
-      systemPrompt =
-        "You are an expert email prompt engineer. Rewrite the user's prompt to produce clear, professional, and well-structured emails.";
-      break;
+Rewrite the user's request into a detailed AI prompt.
 
-    case "business":
-      systemPrompt =
-        "You are a business prompt engineer. Rewrite the prompt to generate strategic business plans, ideas, and professional recommendations.";
+Include:
+
+Role
+Objective
+Required Information
+Desired Output
+Formatting Instructions
+
+Return only the optimized prompt.
+`;
       break;
 
     case "marketing":
-      systemPrompt =
-        "You are a marketing prompt engineer. Rewrite the prompt to generate persuasive, engaging, and conversion-focused marketing content.";
+      systemPrompt = `
+You are a Senior Marketing Strategist.
+
+Rewrite the user's request into a professional marketing prompt.
+
+Include:
+
+Role
+Target Audience
+Objective
+Requirements
+Tone
+Output Format
+
+Return only the optimized prompt.
+`;
+      break;
+
+    case "business":
+      systemPrompt = `
+You are a Business Consultant.
+
+Rewrite the user's request into a detailed AI prompt.
+
+Include:
+
+Role
+Business Goal
+Requirements
+Expected Output
+Constraints
+
+Return only the optimized prompt.
+`;
       break;
 
     case "education":
-      systemPrompt =
-        "You are an education prompt engineer. Rewrite the prompt to generate detailed learning materials, explanations, and educational content.";
+      systemPrompt = `
+You are an Academic Prompt Engineer.
+
+Rewrite the prompt into a detailed educational prompt.
+
+Include:
+
+Role
+Learning Objective
+Topics
+Difficulty Level
+Output Format
+
+Return only the optimized prompt.
+`;
       break;
 
     default:
-      systemPrompt =
-        "You are an expert prompt engineer. Convert the user's simple prompt into a detailed, professional AI prompt that produces high-quality responses.";
+      systemPrompt = `
+You are the world's best Prompt Engineer.
+
+Transform every simple user prompt into a professional AI prompt.
+
+Always include:
+
+Role
+
+Objective
+
+Requirements
+
+Output Format
+
+Constraints
+
+Return ONLY the optimized prompt.
+`;
   }
 
   const response = await client.chat.completions.create({
-    // Replace this with the OpenRouter model you want to use
-    model: "openai/gpt-4.1-mini",
+
+    model: "openrouter/free",
+
+    temperature: 0.9,
 
     messages: [
       {
@@ -58,9 +139,6 @@ const optimizePrompt = async (prompt, category = "professional") => {
         content: prompt,
       },
     ],
-
-    temperature: 0.7,
-    max_tokens: 800,
   });
 
   return response.choices[0].message.content;

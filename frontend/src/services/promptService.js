@@ -9,15 +9,15 @@ export async function optimizePrompt(prompt, category) {
       },
       body: JSON.stringify({
         prompt,
-        category,
+        style: category, // Backend expects "style"
       }),
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to optimize prompt");
-    }
-
     const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to optimize prompt");
+    }
 
     return data;
   } catch (error) {
