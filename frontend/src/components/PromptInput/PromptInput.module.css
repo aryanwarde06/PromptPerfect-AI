@@ -192,12 +192,63 @@
   cursor: pointer;
 
   transition: all 0.3s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .card button:hover {
   transform: translateY(-3px);
 
   box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+}
+
+/* ============================= */
+/* Loading Button */
+/* ============================= */
+
+.loadingButton {
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+.card button:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+  transform: none;
+}
+
+.card button:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* ============================= */
+/* Spinner */
+/* ============================= */
+
+.spinner {
+  width: 20px;
+  height: 20px;
+
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #ffffff;
+
+  border-radius: 50%;
+
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 900px) {

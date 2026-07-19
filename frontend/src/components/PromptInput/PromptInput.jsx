@@ -7,8 +7,8 @@ function PromptInput({
   category,
   setCategory,
   onOptimize,
+  loading,
 }) {
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleOptimize = async () => {
@@ -17,24 +17,13 @@ function PromptInput({
       return;
     }
 
-    try {
-      setLoading(true);
-      setError("");
-
-      await onOptimize();
-
-    } catch (err) {
-      setError("Failed to optimize prompt.");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    setError("");
+    await onOptimize();
   };
 
   return (
     <section className={styles.section}>
       <div className={styles.card}>
-
         <div className={styles.header}>
           <span className={styles.badge}>
             Prompt Optimizer
@@ -53,6 +42,7 @@ function PromptInput({
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
+            disabled={loading}
           >
             <option>Coding</option>
             <option>Resume</option>
@@ -71,6 +61,7 @@ function PromptInput({
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="Write your prompt here..."
+            disabled={loading}
           />
         </div>
 
@@ -82,8 +73,16 @@ function PromptInput({
         <button
           onClick={handleOptimize}
           disabled={loading}
+          className={loading ? styles.loadingButton : ""}
         >
-          {loading ? "Optimizing..." : "Optimize Prompt"}
+          {loading ? (
+            <>
+              <span className={styles.spinner}></span>
+              Optimizing...
+            </>
+          ) : (
+            "✨ Optimize Prompt"
+          )}
         </button>
 
         {error && (
@@ -97,7 +96,6 @@ function PromptInput({
             {error}
           </p>
         )}
-
       </div>
     </section>
   );

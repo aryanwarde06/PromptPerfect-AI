@@ -188,3 +188,79 @@
     width: 100%;
   }
 }
+/* ================= Export Section ================= */
+
+.exportSection {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.exportTitle {
+  text-align: center;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.exportButtons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.exportButton {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.exportButton:hover {
+  transform: translateY(-5px);
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  border-color: transparent;
+  box-shadow: 0 15px 35px rgba(124, 58, 237, 0.35);
+}
+
+.exportButton:active {
+  transform: scale(0.98);
+}
+
+.exportIcon {
+  font-size: 34px;
+  flex-shrink: 0;
+}
+
+.exportContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.exportContent h4 {
+  margin: 0;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.exportContent p {
+  margin: 4px 0 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .exportButtons {
+    grid-template-columns: 1fr;
+  }
+}
