@@ -1,11 +1,9 @@
 .section {
   width: 100%;
   padding: 40px 20px 100px;
-
   display: flex;
   justify-content: center;
 }
-
 .card {
   width: 100%;
   max-width: 900px;

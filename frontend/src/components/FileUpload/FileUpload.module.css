@@ -1,0 +1,50 @@
+.container {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.dropzone {
+  border: 2px dashed #7c5cff;
+  border-radius: 18px;
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  background: #faf9ff;
+}
+
+.dropzone:hover {
+  background: #f3f0ff;
+}
+
+.active {
+  border-color: #4f46e5;
+  background: #eef2ff;
+}
+
+.icon {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+.dropzone h3 {
+  margin-bottom: 10px;
+}
+
+.dropzone p {
+  color: gray;
+}
+
+.dropzone small {
+  display: block;
+  margin-top: 10px;
+  color: #777;
+}
+
+.fileCard {
+  margin-top: 20px;
+  border-radius: 15px;
+  background: white;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}

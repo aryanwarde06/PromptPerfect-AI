@@ -18,7 +18,9 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   const [prompt, setPrompt] = useState("");
   const [category, setCategory] = useState("Coding");
-  const [optimizedPrompt, setOptimizedPrompt] = useState("");
+const [optimizedPrompt, setOptimizedPrompt] = useState("");
+  // ✅ New State (for uploaded file)
+  const [selectedFile, setSelectedFile] = useState(null);
 
   // ⏳ Loading State
   const [loading, setLoading] = useState(false);
@@ -27,59 +29,118 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
 
   // Load history from localStorage
-  const [history, setHistory] = useState(() => {
-    const saved = localStorage.getItem("promptHistory");
-    return saved ? JSON.parse(saved) : [];
-  });
-
+ const [history, setHistory] = useState(() => {
+  const saved = localStorage.getItem("promptHistory");
+  return saved ? JSON.parse(saved) : [];
+});
   // Save history whenever it changes
-  useEffect(() => {
-    localStorage.setItem("promptHistory", JSON.stringify(history));
-  }, [history]);
+  
+useEffect(() => {
+  localStorage.setItem("promptHistory", JSON.stringify(history));
+}, [history]);
+const handleOptimize = async () => {
+  console.log("STEP 1: handleOptimize started");
+  if (!prompt.trim() && !selectedFile) {
+    toast.error("Please enter a prompt or upload a file.");
+    return;
+  }
 
-  // Optimize Prompt
-  const handleOptimize = async () => {
-    if (!prompt.trim()) return;
+  setLoading(true);
 
-    setLoading(true);
+  try {
+    // ===========================
+    // FILE UPLOAD FLOW
+    // ===========================
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
 
-    try {
-      const result = await optimizePrompt(prompt, category);
+      const uploadResponse = await fetch("http://localhost:5000/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const uploadData = await uploadResponse.json();
+
+      if (!uploadData.success) {
+        throw new Error(uploadData.message);
+      }
+
+      const extractedText = uploadData.extractedText;
+
+      const result = await optimizePrompt(extractedText, category);
 
       const optimized =
         result.optimizedPrompt || result.prompt || "";
+setOptimizedPrompt(optimized);
 
-      setOptimizedPrompt(optimized);
 
-      toast.success("✨ Prompt optimized successfully!");
+console.log("Optimized Prompt:", optimized);
 
+toast.success("✨ Prompt optimized successfully!");
       const newItem = {
-        prompt,
+        prompt: selectedFile.name,
         category,
         optimizedPrompt: optimized,
         createdAt: new Date().toLocaleString(),
         favorite: false,
       };
 
-      setHistory((prev) => {
-        const filtered = prev.filter(
-          (item) =>
-            !(
-              item.prompt === newItem.prompt &&
-              item.category === newItem.category
-            )
-        );
+      setHistory((prev) => [newItem, ...prev]);
 
-        return [newItem, ...filtered];
-      });
-    } catch (error) {
-      console.error("Optimization Error:", error);
-      toast.error("❌ Failed to optimize prompt.");
-    } finally {
-      setLoading(false);
+setSelectedFile(null);
+setPrompt("");
+
+return;
     }
-  };
 
+    // ===========================
+    // NORMAL TEXT FLOW
+    // ===========================
+    console.log("STEP 2: Calling Backend");
+
+const result = await optimizePrompt(prompt, category);
+
+console.log("STEP 3: Backend Response", result);
+
+    const optimized =
+      result.optimizedPrompt || result.prompt || "";
+
+  setOptimizedPrompt(optimized);
+
+
+console.log("Optimized Prompt:", optimized);
+
+toast.success("✨ Prompt optimized successfully!");
+
+    const newItem = {
+      prompt,
+      category,
+      optimizedPrompt: optimized,
+      createdAt: new Date().toLocaleString(),
+      favorite: false,
+    };
+
+    setHistory((prev) => {
+      const filtered = prev.filter(
+        (item) =>
+          !(
+            item.prompt === newItem.prompt &&
+            item.category === newItem.category
+          )
+      );
+
+      return [newItem, ...filtered];
+    });
+
+  } catch (error) {
+    console.error(error);
+    toast.error(error.message || "Failed to optimize.");
+  } finally {
+    setLoading(false);
+  }
+};
+ 
   // Load selected prompt from history
   const handleHistorySelect = (item) => {
     setPrompt(item.prompt);
@@ -106,15 +167,18 @@ function App() {
     setHistory((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // 🧹 Clear All History
+  // 🧹 Clear History
   const clearHistory = () => {
-    if (window.confirm("Are you sure you want to delete all prompts?")) {
-      setHistory([]);
-      setPrompt("");
-      setOptimizedPrompt("");
-      setSearchTerm("");
-    }
-  };
+  if (window.confirm("Are you sure you want to delete all prompts?")) {
+    setHistory([]);
+    setPrompt("");
+    setOptimizedPrompt("");
+    setSearchTerm("");
+    setSelectedFile(null);
+
+    localStorage.removeItem("optimizedPrompt");
+  }
+};
 
   return (
     <>
@@ -129,14 +193,16 @@ function App() {
         setCategory={setCategory}
         onOptimize={handleOptimize}
         loading={loading}
+        selectedFile={selectedFile}
+        setSelectedFile={setSelectedFile}
       />
 
-      <PromptOutput
-        prompt={prompt}
-        category={category}
-        optimizedPrompt={optimizedPrompt}
-        onRegenerate={handleOptimize}
-      />
+ <PromptOutput
+  prompt={prompt}
+  category={category}
+  optimizedPrompt={optimizedPrompt}
+  onRegenerate={handleOptimize}
+/>
 
       <PromptHistory
         history={history}
@@ -152,7 +218,6 @@ function App() {
 
       <Templates />
 
-      {/* 🔔 Toast Notifications */}
       <ToastContainer
         position="top-right"
         autoClose={2500}

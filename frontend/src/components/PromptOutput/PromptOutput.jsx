@@ -9,6 +9,7 @@ function PromptOutput({
   optimizedPrompt,
   onRegenerate,
 }) {
+  console.log("PromptOutput received:", optimizedPrompt);
   const [copied, setCopied] = useState(false);
   const [regenerating, setRegenerating] = useState(false);
 

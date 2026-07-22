@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./PromptInput.module.css";
+import FileUpload from "../FileUpload/FileUpload";
 
 function PromptInput({
   prompt,
@@ -8,12 +9,20 @@ function PromptInput({
   setCategory,
   onOptimize,
   loading,
+  selectedFile,
+  setSelectedFile,
 }) {
   const [error, setError] = useState("");
+  const [inputMode, setInputMode] = useState("text");
 
   const handleOptimize = async () => {
-    if (!prompt.trim()) {
+    if (inputMode === "text" && !prompt.trim()) {
       setError("Please enter a prompt.");
+      return;
+    }
+
+    if (inputMode === "file" && !selectedFile) {
+      setError("Please upload a file.");
       return;
     }
 
@@ -25,17 +34,33 @@ function PromptInput({
     <section className={styles.section}>
       <div className={styles.card}>
         <div className={styles.header}>
-          <span className={styles.badge}>
-            Prompt Optimizer
-          </span>
+          <span className={styles.badge}>Prompt Optimizer</span>
 
           <h2>Prompt Optimizer</h2>
 
-          <p>
-            Transform your ideas into professional AI prompts.
-          </p>
+          <p>Transform your ideas into professional AI prompts.</p>
         </div>
 
+        {/* Toggle Buttons */}
+        <div className={styles.toggleContainer}>
+          <button
+            type="button"
+            className={inputMode === "text" ? styles.activeTab : styles.tab}
+            onClick={() => setInputMode("text")}
+          >
+            ✍️ Write Prompt
+          </button>
+
+          <button
+            type="button"
+            className={inputMode === "file" ? styles.activeTab : styles.tab}
+            onClick={() => setInputMode("file")}
+          >
+            📂 Upload File
+          </button>
+        </div>
+
+        {/* Category */}
         <div className={styles.field}>
           <label>Prompt Category</label>
 
@@ -53,24 +78,36 @@ function PromptInput({
           </select>
         </div>
 
-        <div className={styles.field}>
-          <label>Prompt</label>
+        {/* Text Mode */}
+        {inputMode === "text" ? (
+          <>
+            <div className={styles.field}>
+              <label>Prompt</label>
 
-          <textarea
-            rows="8"
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            placeholder="Write your prompt here..."
-            disabled={loading}
+              <textarea
+                rows="8"
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                placeholder="Write your prompt here..."
+                disabled={loading}
+              />
+            </div>
+
+            <div className={styles.info}>
+              <span>{category}</span>
+              <span>{prompt.length}/1000</span>
+            </div>
+          </>
+        ) : (
+          <FileUpload
+            selectedFile={selectedFile}
+            setSelectedFile={setSelectedFile}
           />
-        </div>
+        )}
 
-        <div className={styles.info}>
-          <span>{category}</span>
-          <span>{prompt.length}/1000</span>
-        </div>
-
+        {/* Optimize Button */}
         <button
+          type="button"
           onClick={handleOptimize}
           disabled={loading}
           className={loading ? styles.loadingButton : ""}
