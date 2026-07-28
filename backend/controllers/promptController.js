@@ -1,4 +1,5 @@
 const promptService = require("../services/promptService");
+const Prompt = require("../models/Prompt");
 
 const optimizePrompt = async (req, res) => {
   try {
@@ -30,7 +31,13 @@ const optimizePrompt = async (req, res) => {
       prompt,
       style
     );
-
+ await Prompt.create({
+  userId: req.user.id,
+  originalPrompt: prompt,
+  optimizedPrompt,
+  category: "General",
+  model: "Gemini",
+});
     return res.status(200).json({
       success: true,
       message: "Prompt optimized successfully",
@@ -47,7 +54,29 @@ const optimizePrompt = async (req, res) => {
     });
   }
 };
+// ==============================
+// Get User Prompt History
+// ==============================
+const getPromptHistory = async (req, res) => {
+  try {
+    const prompts = await Prompt.find({
+      userId: req.user.id,
+    }).sort({ createdAt: -1 });
 
+    res.status(200).json({
+      success: true,
+      prompts,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch prompt history",
+    });
+  }
+};
 module.exports = {
   optimizePrompt,
+  getPromptHistory,
 };

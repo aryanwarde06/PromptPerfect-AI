@@ -24,10 +24,26 @@
   backdrop-filter: blur(14px);
 }
 
+/* ---------- Logo ---------- */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+}
+
+.logo img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
 .logo h2 {
   font-size: 1.7rem;
   font-weight: 700;
   color: white;
+  margin: 0;
 }
 
 .logo p {
@@ -38,21 +54,29 @@
   margin-top: 4px;
 }
 
+/* ---------- Navigation ---------- */
+
 .links {
   display: flex;
   gap: 36px;
 }
 
-.links a {
+.links button {
+  background: transparent;
+  border: none;
   color: #cbd5e1;
   font-size: 16px;
   font-weight: 500;
-  transition: 0.3s;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0;
 }
 
-.links a:hover {
+.links button:hover {
   color: white;
 }
+
+/* ---------- Right Buttons ---------- */
 
 .actions {
   display: flex;
@@ -65,6 +89,13 @@
   color: white;
   border: none;
   cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.signIn:hover {
+  color: #60a5fa;
 }
 
 .getStarted {
@@ -76,4 +107,87 @@
   font-size: 15px;
   cursor: pointer;
   font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.getStarted:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+}
+/* ---------- User Section ---------- */
+
+/* ---------- User Dropdown ---------- */
+
+.userSection {
+  position: relative;
+}
+
+.userButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.userButton:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.userButton svg {
+  font-size: 18px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 58px;
+  right: 0;
+  width: 230px;
+
+  background: #101625;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+
+  overflow: hidden;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+
+  z-index: 999;
+}
+
+.dropdown button {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 15px 18px;
+
+  background: transparent;
+  border: none;
+
+  color: white;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.dropdown button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dropdown hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }

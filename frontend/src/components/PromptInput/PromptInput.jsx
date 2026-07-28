@@ -1,3 +1,4 @@
+import AIModelSelector from "../AIModelSelector/AIModelSelector";
 import { useState } from "react";
 import styles from "./PromptInput.module.css";
 import FileUpload from "../FileUpload/FileUpload";
@@ -76,7 +77,10 @@ function PromptInput({
             <option>Marketing</option>
             <option>Education</option>
           </select>
-        </div>
+               </div>
+
+        {/* AI Model Selector */}
+        <AIModelSelector />
 
         {/* Text Mode */}
         {inputMode === "text" ? (

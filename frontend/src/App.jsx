@@ -9,7 +9,10 @@ import Features from "./components/Features/Features";
 import Templates from "./components/Templates/Templates";
 import Footer from "./components/Footer/Footer";
 
-import { optimizePrompt } from "./services/promptService";
+import {
+  optimizePrompt,
+  getPromptHistory,
+} from "./services/promptService";
 
 // 🔔 React Toastify
 import { ToastContainer, toast } from "react-toastify";
@@ -29,15 +32,35 @@ const [optimizedPrompt, setOptimizedPrompt] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
   // Load history from localStorage
- const [history, setHistory] = useState(() => {
-  const saved = localStorage.getItem("promptHistory");
-  return saved ? JSON.parse(saved) : [];
-});
+ const [history, setHistory] = useState([]);
+
+const loadHistory = async () => {
+  try {
+    const prompts = await getPromptHistory();
+
+    const formatted = prompts.map((item) => ({
+      id: item._id,
+      prompt: item.originalPrompt,
+      optimizedPrompt: item.optimizedPrompt,
+      category: item.category,
+      favorite: item.isFavorite,
+      createdAt: new Date(item.createdAt).toLocaleString(),
+    }));
+
+    setHistory(formatted);
+  } catch (error) {
+    console.error(error);
+  }
+};
   // Save history whenever it changes
   
 useEffect(() => {
-  localStorage.setItem("promptHistory", JSON.stringify(history));
-}, [history]);
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    loadHistory();
+  }
+}, []);
 const handleOptimize = async () => {
   console.log("STEP 1: handleOptimize started");
   if (!prompt.trim() && !selectedFile) {
@@ -78,15 +101,7 @@ setOptimizedPrompt(optimized);
 console.log("Optimized Prompt:", optimized);
 
 toast.success("✨ Prompt optimized successfully!");
-      const newItem = {
-        prompt: selectedFile.name,
-        category,
-        optimizedPrompt: optimized,
-        createdAt: new Date().toLocaleString(),
-        favorite: false,
-      };
-
-      setHistory((prev) => [newItem, ...prev]);
+     await loadHistory();
 
 setSelectedFile(null);
 setPrompt("");
@@ -113,25 +128,7 @@ console.log("Optimized Prompt:", optimized);
 
 toast.success("✨ Prompt optimized successfully!");
 
-    const newItem = {
-      prompt,
-      category,
-      optimizedPrompt: optimized,
-      createdAt: new Date().toLocaleString(),
-      favorite: false,
-    };
-
-    setHistory((prev) => {
-      const filtered = prev.filter(
-        (item) =>
-          !(
-            item.prompt === newItem.prompt &&
-            item.category === newItem.category
-          )
-      );
-
-      return [newItem, ...filtered];
-    });
+   await loadHistory();
 
   } catch (error) {
     console.error(error);
@@ -184,18 +181,22 @@ toast.success("✨ Prompt optimized successfully!");
     <>
       <Navbar />
 
-      <Hero />
+     <section id="home">
+  <Hero />
+</section>
 
-      <PromptInput
-        prompt={prompt}
-        setPrompt={setPrompt}
-        category={category}
-        setCategory={setCategory}
-        onOptimize={handleOptimize}
-        loading={loading}
-        selectedFile={selectedFile}
-        setSelectedFile={setSelectedFile}
-      />
+    <section id="get-started">
+  <PromptInput
+    prompt={prompt}
+    setPrompt={setPrompt}
+    category={category}
+    setCategory={setCategory}
+    onOptimize={handleOptimize}
+    loading={loading}
+    selectedFile={selectedFile}
+    setSelectedFile={setSelectedFile}
+  />
+</section>
 
  <PromptOutput
   prompt={prompt}
@@ -214,10 +215,15 @@ toast.success("✨ Prompt optimized successfully!");
         onClearHistory={clearHistory}
       />
 
-      <Features />
-
-      <Templates />
-
+    <section id="features">
+  <Features />
+</section>
+    <section id="templates">
+ <Templates
+  setPrompt={setPrompt}
+  setCategory={setCategory}
+/>
+</section>
       <ToastContainer
         position="top-right"
         autoClose={2500}
@@ -229,7 +235,9 @@ toast.success("✨ Prompt optimized successfully!");
         theme="dark"
       />
 
-      <Footer />
+     <section id="about">
+  <Footer />
+</section>
     </>
   );
 }

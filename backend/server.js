@@ -3,8 +3,15 @@ const cors = require("cors");
 const path = require("path");
 require("dotenv").config();
 
+const connectDB = require("./config/db");
+
 const promptRoutes = require("./routes/promptRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
+const authRoutes = require("./routes/authRoutes");
+const protect = require("./middleware/authMiddleware");
+
+// Connect MongoDB
+connectDB();
 
 const app = express();
 
@@ -46,16 +53,26 @@ app.post("/debug", (req, res) => {
     message: "Debug route works",
   });
 });
-
+// =============================
+// Protected Test Route
+// =============================
+app.get("/api/protected", protect, (req, res) => {
+  res.json({
+    success: true,
+    message: "You have accessed a protected route!",
+    user: req.user,
+  });
+});
 // =============================
 // API Routes
 // =============================
 app.use("/api/prompts", promptRoutes);
-
 app.use("/api/upload", uploadRoutes);
+app.use("/api/auth", authRoutes);
 
 console.log("✅ Prompt routes mounted");
 console.log("✅ Upload routes mounted");
+console.log("✅ Auth routes mounted");
 
 // =============================
 // Server

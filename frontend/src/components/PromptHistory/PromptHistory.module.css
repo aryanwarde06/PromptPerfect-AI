@@ -7,12 +7,14 @@
 
 .card {
   width: 100%;
-  max-width: 900px;
+  max-width: 1200px;
   background: rgba(16, 22, 37, 0.9);
-  border-radius: 24px;
-  padding: 35px;
+  border-radius: 28px;
+  padding: 50px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+ box-shadow:
+  0 20px 60px rgba(0,0,0,.45),
+  0 0 40px rgba(37,99,235,.08);
 }
 
 /* Header */
@@ -27,6 +29,9 @@
 .header h2 {
   color: white;
   margin: 0;
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -1px;
 }
 
 .subHeading {
@@ -56,11 +61,11 @@
 
 .searchInput {
   width: 100%;
-  padding: 14px 18px 14px 48px;
-  border-radius: 12px;
+ padding: 18px 22px 18px 54px;
+  border-radius: 16px;
   border: 2px solid transparent;
   outline: none;
-  font-size: 15px;
+  font-size: 16px;
   background: rgba(255, 255, 255, 0.06);
   color: white;
   transition: all 0.3s ease;
@@ -91,16 +96,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
+  padding: 22px 24px;
   margin-bottom: 14px;
-  border-radius: 14px;
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.05);
   transition: all 0.3s ease;
 }
 
 .item:hover {
-  background: rgba(37, 99, 235, 0.15);
-  transform: translateY(-2px);
+  background: rgba(37,99,235,.15);
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 15px 35px rgba(37,99,235,.18);
 }
 
 /* Prompt Content */
@@ -113,8 +121,10 @@
 
 .content strong {
   display: block;
-  margin-bottom: 8px;
-  font-size: 16px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
 }
 
 .content small {
@@ -132,8 +142,8 @@
 
 .favoriteBtn,
 .deleteBtn {
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;

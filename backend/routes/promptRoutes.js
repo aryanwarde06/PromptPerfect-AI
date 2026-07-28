@@ -1,9 +1,18 @@
 const express = require("express");
 const router = express.Router();
 
-const { optimizePrompt } = require("../controllers/promptController");
+const {
+  optimizePrompt,
+  getPromptHistory,
+} = require("../controllers/promptController");
 
-// POST API
-router.post("/optimize", optimizePrompt);
+const authMiddleware = require("../middleware/authMiddleware");
+
+// Optimize prompt
+router.post("/optimize", authMiddleware, optimizePrompt);
+
+// Get prompt history
+router.get("/history", authMiddleware, getPromptHistory);
+console.log("✅ promptRoutes loaded");
 
 module.exports = router;

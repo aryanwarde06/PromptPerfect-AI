@@ -9,73 +9,77 @@
 
 .card {
   width: 100%;
-  max-width: 900px;
+  max-width: 1200px;
 
   background: rgba(16, 22, 37, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.08);
 
-  border-radius: 24px;
+ border-radius: 28px;
 
-  padding: 50px;
-
+ padding: 55px;
   backdrop-filter: blur(15px);
 
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  box-shadow:
+0 20px 60px rgba(0,0,0,.45),
+0 0 40px rgba(37,99,235,.08);
 }
 
 .header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
-.badge {
-  display: inline-block;
+.header h2 {
+  margin-top: 20px;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: #ffffff;
+}
 
-  padding: 10px 18px;
+.header p {
+  margin-top: 14px;
+  color: #94a3b8;
+  font-size: 19px;
+  line-height: 1.8;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 12px 22px;
 
   border-radius: 999px;
 
   background: rgba(37, 99, 235, 0.15);
-  border: 1px solid rgba(37, 99, 235, 0.3);
+  border: 1px solid rgba(59, 130, 246, 0.35);
 
-  color: #8ec5ff;
+  color: #93c5fd;
 
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
+
+  backdrop-filter: blur(10px);
 }
 
-.header h2 {
-  margin-top: 22px;
 
-  font-size: 42px;
-  font-weight: 700;
-
-  color: white;
-}
-
-.header p {
-  margin-top: 12px;
-
-  color: #94a3b8;
-
-  font-size: 18px;
-}
 
 .field {
-  margin-top: 30px;
+  margin-top: 34px;
 }
-
 .field label {
   display: block;
-
-  margin-bottom: 12px;
-
-  color: white;
-
-  font-size: 18px;
+  margin-bottom: 14px;
+  color: #e2e8f0;
+  font-size: 16px;
   font-weight: 600;
+  letter-spacing: 0.3px;
 }
-
 /* ============================= */
 /* Prompt Category Dropdown */
 /* ============================= */
@@ -85,7 +89,7 @@
 
   height: 64px;
 
-  padding: 0 20px;
+  padding: 0 22px;
 
   background: #0f172a;
 
@@ -138,22 +142,27 @@
 
   border: 1px solid rgba(255, 255, 255, 0.08);
 
-  border-radius: 14px;
+  border-radius: 18px;
 
-  padding: 18px;
+  padding: 22px;
 
   color: white;
 
-  font-size: 17px;
+  font-size: 18px;
+
+  line-height: 1.7;
 
   outline: none;
 
   resize: vertical;
-  min-height: 220px;
+
+  min-height: 260px;
 
   transition: all 0.3s ease;
 }
-
+.field textarea::placeholder {
+  color: #64748b;
+}
 .field textarea:focus {
   border-color: #2563eb;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
@@ -173,36 +182,50 @@
 .card button {
   width: 100%;
 
-  margin-top: 35px;
+  height: 64px;
 
-  padding: 18px;
+  margin-top: 38px;
 
   border: none;
 
-  border-radius: 14px;
+  border-radius: 18px;
 
-  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  background: linear-gradient(
+    135deg,
+    #2563eb 0%,
+    #4f46e5 50%,
+    #7c3aed 100%
+  );
 
   color: white;
 
-  font-size: 17px;
-
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
 
   cursor: pointer;
-
-  transition: all 0.3s ease;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
+
+  transition: all 0.35s ease;
+
+  box-shadow:
+    0 12px 30px rgba(37, 99, 235, 0.35),
+    0 0 25px rgba(124, 58, 237, 0.15);
 }
 
 .card button:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px) scale(1.01);
 
-  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+  box-shadow:
+    0 18px 40px rgba(37, 99, 235, 0.45),
+    0 0 35px rgba(124, 58, 237, 0.2);
+} 
+.card button:active {
+  transform: scale(0.98);
 }
 
 /* ============================= */
@@ -216,13 +239,14 @@
 
 .card button:disabled {
   cursor: not-allowed;
-  opacity: 0.8;
+  opacity: 0.75;
   transform: none;
+  box-shadow: none;
+  filter: grayscale(20%);
 }
 
 .card button:disabled:hover {
   transform: none;
-  box-shadow: none;
 }
 
 /* ============================= */
@@ -256,9 +280,9 @@
     padding: 20px 20px 80px;
   }
 
-  .card {
-    padding: 30px;
-  }
+ .card {
+  padding: 32px 24px;
+}
 
   .header h2 {
     font-size: 34px;
@@ -286,7 +310,7 @@
 .tab,
 .activeTab {
   flex: 1;
-  height: 56px;
+  height: 60px;
   border-radius: 14px;
   font-size: 16px;
   font-weight: 600;
