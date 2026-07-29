@@ -12,8 +12,8 @@ import Footer from "./components/Footer/Footer";
 import {
   optimizePrompt,
   getPromptHistory,
+  toggleFavorite as toggleFavoriteAPI,
 } from "./services/promptService";
-
 // 🔔 React Toastify
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -146,7 +146,12 @@ toast.success("✨ Prompt optimized successfully!");
   };
 
   // ⭐ Toggle Favorite
-  const toggleFavorite = (index) => {
+  const toggleFavorite = async (index) => {
+  try {
+    const prompt = history[index];
+
+    await toggleFavoriteAPI(prompt.id);
+
     setHistory((prev) =>
       prev.map((item, i) =>
         i === index
@@ -157,7 +162,11 @@ toast.success("✨ Prompt optimized successfully!");
           : item
       )
     );
-  };
+  } catch (error) {
+    console.error(error);
+    toast.error("Failed to update favorite.");
+  }
+};
 
   // 🗑️ Delete Prompt
   const deletePrompt = (index) => {

@@ -25,7 +25,17 @@
   align-items: center;
   margin-bottom: 25px;
 }
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 
+.titleSection p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 16px;
+}
 .header h2 {
   color: white;
   margin: 0;
@@ -239,4 +249,33 @@
     width: 100%;
     justify-content: center;
   }
+}
+.count {
+  margin-top: 8px;
+  color: #a1a1aa;
+  font-size: 14px;
+  font-weight: 500;
+}
+.emptyState {
+  text-align: center;
+  padding: 50px 20px;
+  color: #94a3b8;
+}
+
+.emptyIcon {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.emptyState h3 {
+  color: white;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.emptyState p {
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: #94a3b8;
 }

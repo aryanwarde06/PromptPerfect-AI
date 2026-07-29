@@ -1,11 +1,12 @@
-const API_URL = "http://localhost:5000/api/prompts/optimize";
-
+const API_URL = import.meta.env.VITE_API_URL;
+// ==============================
+// Optimize Prompt
+// ==============================
 export async function optimizePrompt(prompt, category) {
   try {
-    // Get JWT token from localStorage
     const token = localStorage.getItem("token");
 
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}/optimize`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,23 +30,46 @@ export async function optimizePrompt(prompt, category) {
     throw error;
   }
 }
+
+// ==============================
+// Get Prompt History
+// ==============================
 export async function getPromptHistory() {
   const token = localStorage.getItem("token");
 
-  const response = await fetch(
-    "http://localhost:5000/api/prompts/history",
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await fetch(`${API_URL}/history`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.message);
+    throw new Error(data.message || "Failed to fetch history");
   }
 
   return data.prompts;
+}
+
+// ==============================
+// Toggle Favorite
+// ==============================
+export async function toggleFavorite(promptId) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${API_URL}/${promptId}/favorite`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to update favorite");
+  }
+
+  return data.prompt;
 }

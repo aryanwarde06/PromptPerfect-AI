@@ -95,7 +95,13 @@ function PromptHistory({
 
         {/* Header */}
         <div className={styles.header}>
-          <h2>📝 Prompt History</h2>
+         <div className={styles.titleSection}>
+  <h2>Prompt History</h2>
+  <p>Browse, search, and manage your optimized prompts.</p>
+  <p className={styles.count}>
+  {history.length} prompt{history.length !== 1 ? "s" : ""}
+</p>
+</div>
 
           {history.length > 0 && (
             <button
@@ -149,9 +155,16 @@ function PromptHistory({
         </h3>
 
         {recent.length === 0 ? (
-          <p className={styles.empty}>
-            No matching prompts found.
-          </p>
+        <div className={styles.emptyState}>
+  <div className={styles.emptyIcon}>📝</div>
+
+  <h3>No prompts found</h3>
+
+  <p>
+    Try a different search or optimize a new prompt to
+    see it here.
+  </p>
+</div>
         ) : (
           <ul className={styles.list}>
             {recent.map((item) =>

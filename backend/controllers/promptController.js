@@ -76,7 +76,41 @@ const getPromptHistory = async (req, res) => {
     });
   }
 };
+// ==============================
+// Toggle Favorite
+// ==============================
+const toggleFavorite = async (req, res) => {
+  try {
+    const prompt = await Prompt.findOne({
+      _id: req.params.id,
+      userId: req.user.id,
+    });
+
+    if (!prompt) {
+      return res.status(404).json({
+        success: false,
+        message: "Prompt not found",
+      });
+    }
+
+    prompt.isFavorite = !prompt.isFavorite;
+    await prompt.save();
+
+    res.status(200).json({
+      success: true,
+      prompt,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to update favorite status",
+    });
+  }
+};
 module.exports = {
   optimizePrompt,
   getPromptHistory,
+  toggleFavorite,
 };

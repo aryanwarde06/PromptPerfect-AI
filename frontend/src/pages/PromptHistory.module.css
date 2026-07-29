@@ -1,0 +1,133 @@
+.container {
+  min-height: 100vh;
+  background: #09090b;
+  color: white;
+  padding: 30px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  top: -150px;
+  right: -150px;
+  background: radial-gradient(
+    circle,
+    rgba(124, 58, 237, 0.15),
+    transparent 70%
+  );
+}
+
+.header,
+.card {
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.header h1 {
+  font-size: 38px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(90deg, #ffffff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  color: #a1a1aa;
+  font-size: 16px;
+}
+
+.card {
+  max-width: 850px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(124, 58, 237, 0.18);
+  border-radius: 20px;
+  backdrop-filter: blur(18px);
+  padding: 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(124, 58, 237, 0.4);
+}
+
+.icon {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #06b6d4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.4);
+}
+
+.card h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.description {
+  color: #9ca3af;
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ---------- History ---------- */
+
+.historyTitle {
+  font-size: 26px;
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.historyItem {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 18px 20px;
+  transition: all 0.3s ease;
+}
+
+.historyItem:hover {
+  transform: translateY(-3px);
+  border-color: #7c3aed;
+  background: rgba(124, 58, 237, 0.08);
+}
+
+.historyItem h3 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.historyItem p {
+  margin: 0;
+  color: #cbd5e1;
+}
+
+.historyItem small {
+  display: block;
+  margin-top: 10px;
+  color: #94a3b8;
+}
