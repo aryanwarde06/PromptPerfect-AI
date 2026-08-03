@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "PromptPerfect AI Assistant",
+  "version": "1.0",
+  "description": "Automatically send optimized prompts to AI platforms.",
+
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting"
+  ],
+
+  "host_permissions": [
+    "https://gemini.google.com/*",
+    "https://chatgpt.com/*",
+    "https://claude.ai/*",
+    "https://chat.deepseek.com/*"
+  ],
+  "externally_connectable": {
+  "matches": [
+    "http://localhost:5173/*"
+  ]
+},
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://gemini.google.com/*",
+        "https://chatgpt.com/*",
+        "https://claude.ai/*",
+        "https://chat.deepseek.com/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+
+  "action": {
+    "default_title": "PromptPerfect AI"
+  }
+}

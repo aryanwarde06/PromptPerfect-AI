@@ -20,7 +20,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [prompt, setPrompt] = useState("");
-  const [category, setCategory] = useState("Coding");
+const [category, setCategory] = useState("Coding");
+
+const [selectedModel, setSelectedModel] = useState({
+  id: "gemini-2.5-flash",
+  name: "Gemini 2.5 Flash",
+  logo: "/src/assets/ai-models/gemini.png",
+});
+
 const [optimizedPrompt, setOptimizedPrompt] = useState("");
   // ✅ New State (for uploaded file)
   const [selectedFile, setSelectedFile] = useState(null);
@@ -195,22 +202,25 @@ toast.success("✨ Prompt optimized successfully!");
 </section>
 
     <section id="get-started">
-  <PromptInput
-    prompt={prompt}
-    setPrompt={setPrompt}
-    category={category}
-    setCategory={setCategory}
-    onOptimize={handleOptimize}
-    loading={loading}
-    selectedFile={selectedFile}
-    setSelectedFile={setSelectedFile}
-  />
+ <PromptInput
+  prompt={prompt}
+  setPrompt={setPrompt}
+  category={category}
+  setCategory={setCategory}
+  selectedModel={selectedModel}
+  setSelectedModel={setSelectedModel}
+  onOptimize={handleOptimize}
+  loading={loading}
+  selectedFile={selectedFile}
+  setSelectedFile={setSelectedFile}
+/>
 </section>
 
- <PromptOutput
+<PromptOutput
   prompt={prompt}
   category={category}
   optimizedPrompt={optimizedPrompt}
+  selectedModel={selectedModel}
   onRegenerate={handleOptimize}
 />
 

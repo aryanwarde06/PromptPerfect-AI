@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 
 import styles from "./Navbar.module.css";
+import logo from "../../assets/logos/logo.png";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -33,22 +34,34 @@ function Navbar() {
     localStorage.removeItem("user");
 
     navigate("/");
-
     window.location.reload();
   };
 
   return (
     <header className={styles.navbar}>
       <div className={styles.container}>
+        {/* ================= Logo ================= */}
+
         <div
           className={styles.logo}
           onClick={() => scrollToSection("home")}
         >
-          <div>
-            <h2>PromptPerfect AI</h2>
+          <img
+            src={logo}
+            alt="PromptPerfect AI Logo"
+            className={styles.logoImage}
+          />
+
+          <div className={styles.logoText}>
+            <h2>
+              PromptPerfect <span>AI</span>
+            </h2>
+
             <p>AI Prompt Optimizer</p>
           </div>
         </div>
+
+        {/* ================= Navigation ================= */}
 
         <nav className={styles.links}>
           <button onClick={() => scrollToSection("home")}>
@@ -68,6 +81,8 @@ function Navbar() {
           </button>
         </nav>
 
+        {/* ================= Right Section ================= */}
+
         <div className={styles.actions}>
           {user ? (
             <div className={styles.userSection}>
@@ -80,31 +95,31 @@ function Navbar() {
                 <FaChevronDown />
               </button>
 
-             {showDropdown && (
-  <div className={styles.dropdown}>
-    <button onClick={() => navigate("/profile")}>
-      <FaUserCircle />
-      My Profile
-    </button>
+              {showDropdown && (
+                <div className={styles.dropdown}>
+                  <button onClick={() => navigate("/profile")}>
+                    <FaUserCircle />
+                    My Profile
+                  </button>
 
-    <button onClick={() => navigate("/history")}>
-      <FaHistory />
-      Prompt History
-    </button>
+                  <button onClick={() => navigate("/history")}>
+                    <FaHistory />
+                    Prompt History
+                  </button>
 
-    <button onClick={() => navigate("/favorites")}>
-      <FaHeart />
-      Favorites
-    </button>
+                  <button onClick={() => navigate("/favorites")}>
+                    <FaHeart />
+                    Favorites
+                  </button>
 
-    <hr />
+                  <hr />
 
-    <button onClick={handleLogout}>
-      <FaSignOutAlt />
-      Logout
-    </button>
-  </div>
-)}
+                  <button onClick={handleLogout}>
+                    <FaSignOutAlt />
+                    Logout
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <button

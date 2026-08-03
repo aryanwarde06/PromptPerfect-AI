@@ -11,6 +11,9 @@ const authRoutes = require("./routes/authRoutes");
 const protect = require("./middleware/authMiddleware");
 
 // Connect MongoDB
+console.log("Raw URI:", JSON.stringify(process.env.MONGODB_URI));
+console.log("Starts with mongodb+srv://", process.env.MONGODB_URI?.startsWith("mongodb+srv://"));
+console.log("First 20 chars:", process.env.MONGODB_URI?.substring(0, 20));
 connectDB();
 
 const app = express();

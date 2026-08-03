@@ -7,17 +7,21 @@ function PromptOutput({
   prompt,
   category,
   optimizedPrompt,
+  selectedModel,
   onRegenerate,
 }) {
-  console.log("PromptOutput received:", optimizedPrompt);
   const [copied, setCopied] = useState(false);
   const [regenerating, setRegenerating] = useState(false);
 
+  // ==========================
+  // Copy Prompt
+  // ==========================
   const handleCopy = async () => {
     if (!optimizedPrompt) return;
 
     try {
       await navigator.clipboard.writeText(optimizedPrompt);
+      
 
       setCopied(true);
       toast.success("📋 Prompt copied successfully!");
@@ -25,26 +29,66 @@ function PromptOutput({
       setTimeout(() => {
         setCopied(false);
       }, 2000);
-    } catch (error) {
+    } catch {
       toast.error("❌ Failed to copy prompt.");
     }
   };
 
-  const handleRegenerate = async () => {
-    try {
-      setRegenerating(true);
+  // ==========================
+  // Open Selected AI Platform
+  // ==========================
+ const openAIPlatform = async () => {
+  if (!optimizedPrompt) return;
 
-      await onRegenerate();
+  try {
+    // Copy prompt
+    await navigator.clipboard.writeText(optimizedPrompt);
 
-      toast.success("🔄 Prompt regenerated successfully!");
-    } catch (error) {
-      toast.error("❌ Failed to regenerate prompt.");
-    } finally {
-      setRegenerating(false);
+    const urls = {
+      "gemini-2.5-flash": "https://gemini.google.com/app",
+      "gpt-4.1": "https://chatgpt.com/",
+      "claude-sonnet-4": "https://claude.ai/",
+      "deepseek-v3": "https://chat.deepseek.com/",
+    };
+
+    const url = urls[selectedModel?.id];
+
+    if (!url) {
+      toast.error("No AI platform selected.");
+      return;
     }
-  };
 
+    // Open selected AI
+    window.open(url, "_blank");
+
+    toast.success(
+      `✅ Prompt copied!\nOpening ${selectedModel.name}...\nPress Ctrl + V to paste.`
+    );
+  } catch (error) {
+    console.error(error);
+    toast.error("Failed to open AI platform.");
+  }
+
+  };
+   // ==========================
+// Regenerate Prompt
+// ==========================
+const handleRegenerate = async () => {
+  try {
+    setRegenerating(true);
+
+    await onRegenerate();
+
+    toast.success("🔄 Prompt regenerated successfully!");
+  } catch (error) {
+    toast.error("❌ Failed to regenerate prompt.");
+  } finally {
+    setRegenerating(false);
+  }
+};
+  // ==========================
   // TXT Export
+  // ==========================
   const downloadTXT = () => {
     const text = `Original Prompt:
 
@@ -68,7 +112,6 @@ ${optimizedPrompt}`;
     const link = document.createElement("a");
     link.href = url;
     link.download = "optimized-prompt.txt";
-
     link.click();
 
     URL.revokeObjectURL(url);
@@ -76,7 +119,9 @@ ${optimizedPrompt}`;
     toast.success("📄 TXT downloaded!");
   };
 
+  // ==========================
   // Markdown Export
+  // ==========================
   const downloadMD = () => {
     const markdown = `# PromptPerfect AI
 
@@ -105,7 +150,6 @@ ${optimizedPrompt}`;
     const link = document.createElement("a");
     link.href = url;
     link.download = "optimized-prompt.md";
-
     link.click();
 
     URL.revokeObjectURL(url);
@@ -113,7 +157,9 @@ ${optimizedPrompt}`;
     toast.success("📝 Markdown downloaded!");
   };
 
+  // ==========================
   // PDF Export
+  // ==========================
   const downloadPDF = () => {
     const doc = new jsPDF();
 
@@ -130,7 +176,6 @@ ${optimizedPrompt}`;
     let y = 50 + original.length * 8;
 
     doc.text("Category:", 20, y);
-
     doc.text(category, 20, y + 10);
 
     y += 25;
@@ -177,6 +222,13 @@ ${optimizedPrompt}`;
               </button>
 
               <button
+                className={styles.copyButton}
+                onClick={openAIPlatform}
+              >
+                🚀 Open in {selectedModel?.name}
+              </button>
+
+              <button
                 className={styles.regenerateButton}
                 onClick={handleRegenerate}
                 disabled={regenerating}
@@ -187,49 +239,49 @@ ${optimizedPrompt}`;
               </button>
             </div>
 
-           <div className={styles.exportSection}>
-  <h3 className={styles.exportTitle}>
-    Export Prompt
-  </h3>
+            <div className={styles.exportSection}>
+              <h3 className={styles.exportTitle}>
+                Export Prompt
+              </h3>
 
-  <div className={styles.exportButtons}>
-    <button
-      className={styles.exportButton}
-      onClick={downloadTXT}
-    >
-      <div className={styles.exportIcon}>📄</div>
+              <div className={styles.exportButtons}>
+                                <button
+                  className={styles.exportButton}
+                  onClick={downloadTXT}
+                >
+                  <div className={styles.exportIcon}>📄</div>
 
-      <div className={styles.exportContent}>
-        <h4>TXT File</h4>
-        <p>Plain text format</p>
-      </div>
-    </button>
+                  <div className={styles.exportContent}>
+                    <h4>TXT File</h4>
+                    <p>Plain text format</p>
+                  </div>
+                </button>
 
-    <button
-      className={styles.exportButton}
-      onClick={downloadPDF}
-    >
-      <div className={styles.exportIcon}>📑</div>
+                <button
+                  className={styles.exportButton}
+                  onClick={downloadPDF}
+                >
+                  <div className={styles.exportIcon}>📑</div>
 
-      <div className={styles.exportContent}>
-        <h4>PDF File</h4>
-        <p>Printable document</p>
-      </div>
-    </button>
+                  <div className={styles.exportContent}>
+                    <h4>PDF File</h4>
+                    <p>Printable document</p>
+                  </div>
+                </button>
 
-    <button
-      className={styles.exportButton}
-      onClick={downloadMD}
-    >
-      <div className={styles.exportIcon}>📝</div>
+                <button
+                  className={styles.exportButton}
+                  onClick={downloadMD}
+                >
+                  <div className={styles.exportIcon}>📝</div>
 
-      <div className={styles.exportContent}>
-        <h4>Markdown</h4>
-        <p>.md format</p>
-      </div>
-    </button>
-  </div>
-</div>
+                  <div className={styles.exportContent}>
+                    <h4>Markdown</h4>
+                    <p>.md format</p>
+                  </div>
+                </button>
+              </div>
+            </div>
           </>
         ) : (
           <div className={styles.empty}>

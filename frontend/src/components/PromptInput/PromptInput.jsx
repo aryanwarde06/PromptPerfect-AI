@@ -8,6 +8,8 @@ function PromptInput({
   setPrompt,
   category,
   setCategory,
+  selectedModel,
+  setSelectedModel,
   onOptimize,
   loading,
   selectedFile,
@@ -80,7 +82,10 @@ function PromptInput({
                </div>
 
         {/* AI Model Selector */}
-        <AIModelSelector />
+       <AIModelSelector
+  selectedModel={selectedModel}
+  setSelectedModel={setSelectedModel}
+/>
 
         {/* Text Mode */}
         {inputMode === "text" ? (

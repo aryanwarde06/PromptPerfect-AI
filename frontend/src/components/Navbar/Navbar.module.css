@@ -24,37 +24,57 @@
   backdrop-filter: blur(14px);
 }
 
-/* ---------- Logo ---------- */
+/* ==========================================
+   Logo
+========================================== */
 
 .logo {
   display: flex;
   align-items: center;
   gap: 14px;
   cursor: pointer;
+  user-select: none;
 }
 
-.logo img {
-  width: 48px;
-  height: 48px;
+.logoImage {
+  width: 58px;
+  height: 58px;
   object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
-.logo h2 {
-  font-size: 1.7rem;
-  font-weight: 700;
-  color: white;
+.logo:hover .logoImage {
+  transform: scale(1.06);
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+}
+
+.logoText h2 {
   margin: 0;
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #ffffff;
 }
 
-.logo p {
-  font-size: 0.7rem;
-  letter-spacing: 3px;
+.logoText h2 span {
+  color: #8b5cf6;
+}
+
+.logoText p {
+  margin-top: 5px;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: #94a3b8;
-  margin-top: 4px;
 }
 
-/* ---------- Navigation ---------- */
+/* ==========================================
+   Navigation
+========================================== */
 
 .links {
   display: flex;
@@ -68,7 +88,7 @@
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: 0.3s;
   padding: 0;
 }
 
@@ -76,7 +96,9 @@
   color: white;
 }
 
-/* ---------- Right Buttons ---------- */
+/* ==========================================
+   Right Section
+========================================== */
 
 .actions {
   display: flex;
@@ -91,7 +113,7 @@
   cursor: pointer;
   font-size: 15px;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: 0.3s;
 }
 
 .signIn:hover {
@@ -114,9 +136,10 @@
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
 }
-/* ---------- User Section ---------- */
 
-/* ---------- User Dropdown ---------- */
+/* ==========================================
+   User Section
+========================================== */
 
 .userSection {
   position: relative;
@@ -126,14 +149,23 @@
   display: flex;
   align-items: center;
   gap: 10px;
+
   background: rgba(255, 255, 255, 0.08);
+
   color: white;
+
   border: 1px solid rgba(255, 255, 255, 0.08);
+
   padding: 12px 18px;
+
   border-radius: 12px;
+
   cursor: pointer;
+
   font-size: 15px;
+
   font-weight: 600;
+
   transition: 0.3s;
 }
 
@@ -145,14 +177,21 @@
   font-size: 18px;
 }
 
+/* ==========================================
+   Dropdown
+========================================== */
+
 .dropdown {
   position: absolute;
   top: 58px;
   right: 0;
+
   width: 230px;
 
   background: #101625;
+
   border: 1px solid rgba(255, 255, 255, 0.08);
+
   border-radius: 14px;
 
   overflow: hidden;
@@ -172,6 +211,7 @@
   padding: 15px 18px;
 
   background: transparent;
+
   border: none;
 
   color: white;
