@@ -1,7 +1,8 @@
 import styles from "./Templates.module.css";
+
 import {
   Code2,
-  Mail,
+  PenTool,
   FileText,
   Megaphone,
   GraduationCap,
@@ -11,55 +12,71 @@ import {
 
 const templates = [
   {
-    icon: <Code2 size={32} />,
+    icon: <Code2 size={28} />,
     title: "Coding",
-    desc: "Generate optimized coding prompts for debugging, reviews and development.",
+    badge: "⭐ Popular",
+    description:
+      "Generate optimized code, debug applications, explain logic, and improve performance.",
     category: "Coding",
     prompt:
       "Generate clean, optimized code for [PROBLEM]. Explain the logic, include comments, optimize for performance, and mention time complexity.",
   },
+
   {
-    icon: <Mail size={32} />,
-    title: "Email",
-    desc: "Write professional emails for business, clients and communication.",
+    icon: <PenTool size={28} />,
+    title: "Writing",
+    badge: "✨ Recommended",
+    description:
+      "Write blogs, articles, emails, reports, and professional content with AI assistance.",
     category: "Writing",
     prompt:
-      "Write a professional email about [TOPIC]. Use a polite and professional tone, include a clear subject line, greeting, body, and call to action.",
+      "Write a professional article about [TOPIC]. Use a clear structure, engaging tone, headings, and conclusion.",
   },
+
   {
-    icon: <FileText size={32} />,
+    icon: <FileText size={28} />,
     title: "Resume",
-    desc: "Create ATS-friendly resumes and cover letters with AI.",
+    badge: "🔥 Trending",
+    description:
+      "Create ATS-friendly resumes, cover letters, and prepare for job interviews.",
     category: "Writing",
     prompt:
-      "Create an ATS-friendly resume for a [JOB ROLE]. Highlight skills, projects, achievements, certifications, and professional experience.",
+      "Create an ATS-friendly resume for a [JOB ROLE]. Highlight skills, achievements, certifications, and projects.",
   },
+
   {
-    icon: <Megaphone size={32} />,
+    icon: <Megaphone size={28} />,
     title: "Marketing",
-    desc: "Generate marketing campaigns, ads and social media prompts.",
+    badge: "🚀 Growth",
+    description:
+      "Generate marketing campaigns, ad copy, SEO content, and social media strategies.",
     category: "Marketing",
     prompt:
-      "Create a complete marketing campaign for [PRODUCT]. Include target audience, slogans, ad copy, social media posts, and marketing strategy.",
+      "Create a complete marketing campaign for [PRODUCT]. Include audience, strategy, slogans, and social media ideas.",
   },
+
   {
-    icon: <GraduationCap size={32} />,
+    icon: <GraduationCap size={28} />,
     title: "Education",
-    desc: "Learning, teaching and study prompts for students and educators.",
+    badge: "📚 Learning",
+    description:
+      "Explain concepts, generate quizzes, study notes, and educational content.",
     category: "Education",
     prompt:
-      "Explain [TOPIC] in a simple and engaging way with real-life examples, diagrams, quizzes, and practice questions.",
+      "Explain [TOPIC] in simple language with examples, diagrams, quizzes, and practice questions.",
   },
+
   {
-    icon: <Briefcase size={32} />,
+    icon: <Briefcase size={28} />,
     title: "Business",
-    desc: "Business strategy, planning and startup idea generation.",
+    badge: "💎 Premium",
+    description:
+      "Create business plans, SWOT analysis, startup ideas, and professional proposals.",
     category: "Business",
     prompt:
-      "Develop a business plan for a startup in the [INDUSTRY] industry. Include SWOT analysis, revenue model, marketing strategy, financial plan, and growth roadmap.",
+      "Develop a business plan for a startup in the [INDUSTRY] industry. Include SWOT analysis, revenue model, marketing strategy, and financial plan.",
   },
 ];
-
 function Templates({ setPrompt, setCategory }) {
   const handleTemplateClick = (template) => {
     setPrompt(template.prompt);
@@ -67,39 +84,63 @@ function Templates({ setPrompt, setCategory }) {
 
     document
       .getElementById("get-started")
-      ?.scrollIntoView({ behavior: "smooth" });
+      ?.scrollIntoView({
+        behavior: "smooth",
+      });
   };
 
   return (
     <section className={styles.templates}>
       <div className={styles.container}>
         <span className={styles.badge}>
-          Prompt Templates
+          🚀 Prompt Templates
         </span>
 
-        <h2>Popular Prompt Templates</h2>
+        <h2>Choose a Prompt Template</h2>
 
         <p>
-          Choose a professionally designed template and generate better AI
-          prompts instantly.
+          Start faster with professionally designed AI prompt templates.
+          Select a template below and customize it to match your needs.
         </p>
 
         <div className={styles.grid}>
           {templates.map((item) => (
-            <div key={item.title} className={styles.card}>
-              <div className={styles.icon}>
-                {item.icon}
+            <div
+              key={item.title}
+              className={styles.card}
+            >
+              {/* Card Header */}
+              <div className={styles.cardHeader}>
+                <div className={styles.left}>
+                  <div className={styles.icon}>
+                    {item.icon}
+                  </div>
+
+                  <h3>{item.title}</h3>
+                </div>
+
+                <span className={styles.cardBadge}>
+                  {item.badge}
+                </span>
               </div>
 
-              <h3>{item.title}</h3>
+              {/* Description */}
+              <p className={styles.description}>
+                {item.description}
+              </p>
 
-              <p>{item.desc}</p>
+              {/* Divider */}
+              <div className={styles.divider}></div>
 
+              {/* Button */}
               <button
                 className={styles.button}
-                onClick={() => handleTemplateClick(item)}
+                onClick={() =>
+                  handleTemplateClick(item)
+                }
               >
-                Use Template
+                <span>Use Template</span>
+
                 <ArrowRight size={18} />
               </button>
             </div>

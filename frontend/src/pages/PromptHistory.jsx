@@ -6,6 +6,7 @@ import { getPromptHistory } from "../services/promptService";
 function PromptHistory() {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const loadHistory = async () => {
@@ -22,12 +23,30 @@ function PromptHistory() {
     loadHistory();
   }, []);
 
+  // Search Filter
+  const filteredHistory = history.filter(
+    (item) =>
+      item.originalPrompt
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+      item.category
+        .toLowerCase()
+        .includes(search.toLowerCase())
+  );  
+  const handleOpenPrompt = (item) => {
+  localStorage.setItem(
+    "selectedPrompt",
+    JSON.stringify(item)
+  );
+
+  window.location.href = "/";
+};
   return (
     <div className={styles.container}>
       {/* Header */}
       <div className={styles.header}>
-        <h1>Prompt History</h1>
-        <p>Browse and manage your optimized prompts.</p>
+        <h1>📚 Prompt History</h1>
+        <p>Browse and manage all your optimized prompts.</p>
       </div>
 
       {/* Card */}
@@ -49,22 +68,56 @@ function PromptHistory() {
           </>
         ) : (
           <>
-            <h2 className={styles.historyTitle}>Your Prompts</h2>
+            <div className={styles.topBar}>
+              <h2 className={styles.historyTitle}>
+                Your Prompt Library
+              </h2>
+
+              <input
+                type="text"
+                placeholder="🔍 Search prompts..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className={styles.searchInput}
+              />
+            </div>
 
             <div className={styles.historyList}>
-              {history.map((item) => (
-                <div key={item._id} className={styles.historyItem}>
-                  <h3>{item.originalPrompt}</h3>
+              {filteredHistory.length > 0 ? (
+                filteredHistory.map((item) => (
+                  <div
+                    key={item._id}
+                    className={styles.historyItem}
+                  >
+                    <div className={styles.historyContent}>
+                      <h3>{item.originalPrompt}</h3>
 
-                  <p>
-                    <strong>Category:</strong> {item.category}
-                  </p>
+                      <div className={styles.meta}>
+                        <span className={styles.category}>
+                          {item.category}
+                        </span>
 
-                  <small>
-                    {new Date(item.createdAt).toLocaleString()}
-                  </small>
-                </div>
-              ))}
+                        <span className={styles.date}>
+                          {new Date(
+                            item.createdAt
+                          ).toLocaleString()}
+                        </span>
+                      </div>
+                    </div>
+
+                   <button
+  className={styles.openBtn}
+  onClick={() => handleOpenPrompt(item)}
+>
+  Open →
+</button>
+                  </div>
+                ))
+              ) : (
+                <p className={styles.noResults}>
+                  No prompts found.
+                </p>
+              )}
             </div>
           </>
         )}

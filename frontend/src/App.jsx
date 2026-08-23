@@ -7,6 +7,7 @@ import PromptOutput from "./components/PromptOutput/PromptOutput";
 import PromptHistory from "./components/PromptHistory/PromptHistory";
 import Features from "./components/Features/Features";
 import Templates from "./components/Templates/Templates";
+import Dashboard from "./components/Dashboard/Dashboard";
 import Footer from "./components/Footer/Footer";
 
 import {
@@ -66,6 +67,28 @@ useEffect(() => {
 
   if (token) {
     loadHistory();
+  }
+}, []);
+useEffect(() => {
+  const savedPrompt = localStorage.getItem("selectedPrompt");
+
+  if (savedPrompt) {
+    const item = JSON.parse(savedPrompt);
+
+    setPrompt(item.originalPrompt);
+    setOptimizedPrompt(item.optimizedPrompt);
+    setCategory(item.category);
+
+    localStorage.removeItem("selectedPrompt");
+
+    // Scroll to Prompt Input
+    setTimeout(() => {
+      document
+        .getElementById("get-started")
+        ?.scrollIntoView({
+          behavior: "smooth",
+        });
+    }, 300);
   }
 }, []);
 const handleOptimize = async () => {
@@ -224,17 +247,24 @@ toast.success("✨ Prompt optimized successfully!");
   onRegenerate={handleOptimize}
 />
 
-      <PromptHistory
-        history={history}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        onSelect={handleHistorySelect}
-        onToggleFavorite={toggleFavorite}
-        onDelete={deletePrompt}
-        onClearHistory={clearHistory}
-      />
+     <PromptHistory
+  history={history}
+  searchTerm={searchTerm}
+  setSearchTerm={setSearchTerm}
+  onSelect={handleHistorySelect}
+  onToggleFavorite={toggleFavorite}
+  onDelete={deletePrompt}
+  onClearHistory={clearHistory}
+/>
 
-    <section id="features">
+<section id="dashboard">
+ <Dashboard
+  history={history}
+  selectedModel={selectedModel}
+/>
+</section>
+
+<section id="features">
   <Features />
 </section>
     <section id="templates">

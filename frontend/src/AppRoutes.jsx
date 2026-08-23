@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import PromptHistory from "./pages/PromptHistory";
 import Favorites from "./pages/Favorites";
+import Settings from "./pages/Settings";
 
 function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ function AppRoutes() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/history" element={<PromptHistory />} />
       <Route path="/favorites" element={<Favorites />} />
+      <Route path="/settings" element={<Settings />} />
     </Routes>
   );
 }

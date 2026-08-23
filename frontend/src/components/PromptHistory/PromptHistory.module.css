@@ -8,9 +8,12 @@
 .card {
   width: 100%;
   max-width: 1200px;
-  background: rgba(16, 22, 37, 0.9);
-  border-radius: 28px;
-  padding: 50px;
+
+  background: rgba(16,22,37,.9);
+
+  border-radius: 24px;
+
+  padding: 35px;
   border: 1px solid rgba(255, 255, 255, 0.08);
  box-shadow:
   0 20px 60px rgba(0,0,0,.45),
@@ -106,11 +109,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 22px 24px;
-  margin-bottom: 14px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.05);
-  transition: all 0.3s ease;
+
+  padding: 14px 18px;
+
+  margin-bottom: 10px;
+
+  border-radius: 14px;
+
+  background: rgba(255,255,255,.05);
+
+  transition: all .25s ease;
+
+  min-height: 72px;
 }
 
 .item:hover {
@@ -126,41 +136,56 @@
 .content {
   flex: 1;
   cursor: pointer;
+  overflow: hidden;
+}
+
+.promptTitle {
+  margin: 0;
+
   color: white;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
 }
 
-.content strong {
+.promptInfo {
   display: block;
-  margin-bottom: 10px;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.5;
-}
 
-.content small {
+  margin-top: 6px;
+
   color: #94a3b8;
-  font-size: 13px;
-}
 
+  font-size: 12px;
+}
 /* Buttons */
 
 .actions {
   display: flex;
-  align-items: center;
-  gap: 10px;
-}
 
+  align-items: center;
+
+  gap: 8px;
+
+  margin-left: 15px;
+}
 .favoriteBtn,
 .deleteBtn {
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 14px;
   transition: all 0.3s ease;
 }
 
@@ -278,4 +303,39 @@
   margin: 0 auto;
   line-height: 1.6;
   color: #94a3b8;
+}
+.viewAllContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.viewAllBtn {
+  padding: 12px 28px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #7c3aed
+  );
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+
+  box-shadow: 0 10px 25px rgba(37,99,235,.25);
+}
+
+.viewAllBtn:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 16px 35px rgba(37,99,235,.35);
 }

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./PromptHistory.module.css";
 
 import {
@@ -11,6 +12,7 @@ import {
 import { toast } from "react-toastify";
 
 function PromptHistory({
+  
   history,
   searchTerm,
   setSearchTerm,
@@ -19,6 +21,7 @@ function PromptHistory({
   onDelete,
   onClearHistory,
 }) {
+  const navigate = useNavigate();
   // Filter prompts based on search
   const filteredHistory = history.filter(
     (item) =>
@@ -26,68 +29,70 @@ function PromptHistory({
       item.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const favorites = filteredHistory.filter((item) => item.favorite);
-  const recent = filteredHistory.filter((item) => !item.favorite);
+ const favorites = filteredHistory
+  .filter((item) => item.favorite)
+  .slice(0, 2);
 
-  const renderPrompt = (item, originalIndex) => (
-    <li key={originalIndex} className={styles.item}>
-      <div
-        className={styles.content}
-        onClick={() => onSelect(item)}
-      >
-        <strong>{item.prompt}</strong>
+const recent = filteredHistory
+  .filter((item) => !item.favorite)
+  .slice(0, 5);
+const renderPrompt = (item, originalIndex) => (
+  <li key={originalIndex} className={styles.item}>
+    <div
+      className={styles.content}
+      onClick={() => onSelect(item)}
+    >
+      <h4 className={styles.promptTitle}>
+        📄 {item.prompt}
+      </h4>
 
-        <small>
-          {item.category} • {item.createdAt}
-        </small>
-      </div>
+      <small className={styles.promptInfo}>
+        {item.category} • {item.createdAt}
+      </small>
+    </div>
 
-      <div className={styles.actions}>
-        {/* Favorite Button */}
-        <button
-          className={styles.favoriteBtn}
-          onClick={(e) => {
-            e.stopPropagation();
+    <div className={styles.actions}>
+      <button
+        className={styles.favoriteBtn}
+        onClick={(e) => {
+          e.stopPropagation();
 
-            onToggleFavorite(originalIndex);
+          onToggleFavorite(originalIndex);
 
-            if (item.favorite) {
-              toast.info("⭐ Removed from favorites");
-            } else {
-              toast.success("⭐ Added to favorites");
-            }
-          }}
-          title={
-            item.favorite
-              ? "Remove from Favorites"
-              : "Add to Favorites"
+          if (item.favorite) {
+            toast.info("⭐ Removed from favorites");
+          } else {
+            toast.success("⭐ Added to favorites");
           }
-        >
-          {item.favorite ? <FaStar /> : <FaRegStar />}
-        </button>
+        }}
+        title={
+          item.favorite
+            ? "Remove from Favorites"
+            : "Add to Favorites"
+        }
+      >
+        {item.favorite ? <FaStar /> : <FaRegStar />}
+      </button>
 
-        {/* Delete Button */}
-        <button
-          className={styles.deleteBtn}
-          onClick={(e) => {
-            e.stopPropagation();
+      <button
+        className={styles.deleteBtn}
+        onClick={(e) => {
+          e.stopPropagation();
 
-            if (
-              window.confirm(
-                "Are you sure you want to delete this prompt?"
-              )
-            ) {
-              onDelete(originalIndex);
-              toast.success("🗑️ Prompt deleted successfully");
-            }
-          }}
-          title="Delete Prompt"
-        >
-          <FaTrashAlt />
-        </button>
-      </div>
-    </li>
-  );
+          if (
+            window.confirm("Delete this prompt?")
+          ) {
+            onDelete(originalIndex);
+            toast.success("🗑️ Prompt deleted");
+          }
+        }}
+        title="Delete Prompt"
+      >
+        <FaTrashAlt />
+      </button>
+    </div>
+  </li>
+);
 
   return (
     <section className={styles.section}>
@@ -172,6 +177,14 @@ function PromptHistory({
             )}
           </ul>
         )}
+        <div className={styles.viewAllContainer}>
+<button
+  className={styles.viewAllBtn}
+  onClick={() => navigate("/history")}
+>
+  View All History →
+</button>
+</div>
       </div>
     </section>
   );
